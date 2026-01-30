@@ -1,0 +1,5 @@
+{
+  "name": "Smart Review Assistant",
+  "description": "An intelligent auditing and review assistant that learns from local rules to analyze business proposals, extract key info, summarize content, and draft professional review opinions using Gemini 3 models.",
+  "requestFramePermissions": []
+}
