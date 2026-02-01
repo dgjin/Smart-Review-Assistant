@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,8 +7,8 @@
     <title>Smart Review Assistant</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      // 为浏览器环境提供 process.env 垫片，防止 ReferenceError
-      window.process = window.process || { env: {} };
+      // 增强垫片：确保 process.env.API_KEY 至少是一个空字符串，防止 SDK 构造函数抛错
+      window.process = window.process || { env: { API_KEY: "" } };
     </script>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -39,6 +40,7 @@
     "react/": "https://esm.sh/react@^19.2.4/",
     "react": "https://esm.sh/react@^19.2.4",
     "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react-dom": "https://esm.sh/react-dom@^19.2.4",
     "mammoth": "https://esm.sh/mammoth@1.8.0",
     "pdfjs-dist": "https://esm.sh/pdfjs-dist@3.11.174"
   }
@@ -47,7 +49,7 @@
 </head>
   <body>
     <div id="root"></div>
-    <!-- 显式引入主入口模块 -->
+    <!-- 使用显式扩展名以提高本地环境兼容性 -->
     <script type="module" src="./index.tsx"></script>
   </body>
 </html>

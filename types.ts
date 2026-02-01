@@ -1,7 +1,13 @@
 
 export type Language = 'zh' | 'en';
 
-export type ModelProvider = 'Gemini' | 'DeepSeek';
+export type ModelProvider = 'Gemini' | 'DeepSeek' | 'MiniMax';
+
+export interface AISettings {
+  deepseekKey: string;
+  deepseekBaseUrl: string;
+  minimaxKey: string;
+}
 
 export interface Rule {
   id: string;
@@ -11,6 +17,24 @@ export interface Rule {
   active: boolean;
 }
 
+export interface ReferenceDocument {
+  id: string;
+  title: string;
+  content: string;
+  type: 'pdf' | 'docx' | 'txt';
+  category: 'HR' | 'Financial' | 'Legal' | 'Operational' | 'Compliance';
+  active: boolean;
+  tags?: string[];
+}
+
+export interface DocumentVersion {
+  id: string;
+  timestamp: number;
+  name: string;
+  content: string;
+  extractedText?: string;
+}
+
 export interface ReviewDocument {
   id: string;
   name: string;
@@ -18,6 +42,7 @@ export interface ReviewDocument {
   extractedText?: string; // Plain text extracted from PDF for non-multimodal models
   type: 'pdf' | 'docx' | 'txt'; 
   mimeType: string;
+  versions?: DocumentVersion[]; // Snapshot history
 }
 
 export interface ExtractedInfo {
@@ -37,4 +62,29 @@ export interface ReviewSession {
   summaryPrompt: string;
   opinion: string;
   createdAt: number;
+}
+
+export interface ImageAdjustments {
+  brightness: number;
+  contrast: number;
+  saturate: number;
+  grayscale: number;
+  sepia: number;
+  blur: number;
+}
+
+export interface DistillSession {
+  id: string;
+  title: string;
+  documents: ReviewDocument[];
+  result: string;
+  type: string; // Executive, Keywords, etc.
+  visualData: Record<string, string>; // Cache for AI generated images
+  visualAdjustments?: Record<string, ImageAdjustments>; // CSS filter adjustments
+  timestamp: number;
+  config?: {
+    logoUrl?: string;
+    themeColor?: string;
+    themeName?: string;
+  };
 }
